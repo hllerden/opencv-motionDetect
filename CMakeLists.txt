@@ -31,6 +31,11 @@ add_executable(edgeDetection
 )
 target_link_libraries(edgeDetection      ${OpenCV_LIBS}
 )
+add_executable(objDetect
+    objDetect.cpp
+)
+target_link_libraries(objDetect      ${OpenCV_LIBS}
+)
 
 
 
@@ -48,6 +53,10 @@ install(TARGETS histogram
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 install(TARGETS edgeDetection
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+install(TARGETS objDetect
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
