@@ -21,12 +21,33 @@ add_executable(MotionDetection
 target_link_libraries(MotionDetection      ${OpenCV_LIBS}
 )
 
+add_executable(histogram
+    histogram.cpp
+)
+target_link_libraries(histogram      ${OpenCV_LIBS}
+)
+add_executable(edgeDetection
+    edgeDetection.cpp
+)
+target_link_libraries(edgeDetection      ${OpenCV_LIBS}
+)
+
+
+
 
 # target_link_libraries(MotionDetection Qt${QT_VERSION_MAJOR}::Core     ${OpenCV_LIBS}
 # )
 
 include(GNUInstallDirs)
 install(TARGETS MotionDetection
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+install(TARGETS histogram
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+install(TARGETS edgeDetection
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )

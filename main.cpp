@@ -328,11 +328,11 @@ int saltPaperMedian()
 }
 
 int main() {
-    // motionDetectBase();
+    motionDetectBase();
     // motionDetectLearning();
     // greyColor_blackWhite();
     // greyColor_blackWhite_Gaus_median();
-    saltPaperMedian();
+    // saltPaperMedian();
     destroyAllWindows();
     return 0;
 }
