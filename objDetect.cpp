@@ -21,7 +21,7 @@ using namespace std;
 int imageDetaction(){
     Mat rawImage, greyImage ,cannyEdges ,gaussianCannyEdge, blurredFrame ,dilatedEdges;
 
-    rawImage = imread("/home/halilerden/Documents/workFiles/06-imageProcess/imageProcess/opencv-motionDetect/objs.png");
+    rawImage = imread("/home/halilerden/Documents/workFiles/06-imageProcess/imageProcess/opencv-motionDetect/test_images/test1.webp");
     if (rawImage.empty()) {
         cerr << "Error: Unable to load the image." << endl;
         return -1;
@@ -31,29 +31,30 @@ int imageDetaction(){
      imshow("grey image", greyImage);
 
     // GaussianBlur(greyImage,greyImage,Size(3, 3), 0);
-    // kenar bulma uygulamalıyız
     // imshow("GaussianBlur image", greyImage);
 
+    medianBlur(greyImage,greyImage,3);
+     imshow("medianBlur image", greyImage);
     // gaus uygulanmadan önceki hali
     //canny uygulayalım.
-    Canny(greyImage,cannyEdges,100,200);
+    Canny(greyImage,cannyEdges,50,200);
     imshow("Canny image", cannyEdges);
 
 
-    // 4. Kenarları genişletme (Dilate işlemi)
-    Mat kernel = getStructuringElement(MORPH_RECT, Size(3, 3));
-    dilate(cannyEdges, dilatedEdges, kernel);
+    // // 4. Kenarları genişletme (Dilate işlemi)
+    // Mat kernel = getStructuringElement(MORPH_RECT, Size(3, 3));
+    // dilate(cannyEdges, dilatedEdges, kernel);
 
 
 
 
 
-    imshow("dilatedEdges image", dilatedEdges);
+    // imshow("dilatedEdges image", dilatedEdges);
 
     // 5. Kontur Bulma (Canny üzerinde)
     vector<vector<Point>> contours;
     vector<Vec4i> hierarchy;
-    findContours(cannyEdges, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
+    findContours(cannyEdges, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE);
     // 5.5. Konturları çizecek yeni bir görüntü oluştur
 
     Mat contourImage = Mat::zeros(rawImage.size(), CV_8UC3);
@@ -72,7 +73,7 @@ int imageDetaction(){
     int counter=0;
 
     for (const auto& contour : contours) {
-        if (contourArea(contour) > 100) { // Küçük alanları filtrele
+        if (contourArea(contour) > 2000) { // Küçük alanları filtrele
 
             Rect boundingBox = boundingRect(contour);
             rectangle(contourFrame, boundingBox, Scalar(0, 255, 0), 3);
